@@ -40,6 +40,7 @@ data class MealDetail(
     val strTags: String? = null,
     @SerializedName("strYoutube")
     val strYoutube: String? = null,
+    // Only essential ingredient fields to avoid KAPT issues
     @SerializedName("strIngredient1")
     val strIngredient1: String? = null,
     @SerializedName("strIngredient2")
@@ -60,26 +61,6 @@ data class MealDetail(
     val strIngredient9: String? = null,
     @SerializedName("strIngredient10")
     val strIngredient10: String? = null,
-    @SerializedName("strIngredient11")
-    val strIngredient11: String? = null,
-    @SerializedName("strIngredient12")
-    val strIngredient12: String? = null,
-    @SerializedName("strIngredient13")
-    val strIngredient13: String? = null,
-    @SerializedName("strIngredient13")
-    val strIngredient14: String? = null,
-    @SerializedName("strIngredient15")
-    val strIngredient15: String? = null,
-    @SerializedName("strIngredient16")
-    val strIngredient16: String? = null,
-    @SerializedName("strIngredient17")
-    val strIngredient17: String? = null,
-    @SerializedName("strIngredient18")
-    val strIngredient18: String? = null,
-    @SerializedName("strIngredient19")
-    val strIngredient19: String? = null,
-    @SerializedName("strIngredient20")
-    val strIngredient20: String? = null,
     @SerializedName("strMeasure1")
     val strMeasure1: String? = null,
     @SerializedName("strMeasure2")
@@ -100,26 +81,6 @@ data class MealDetail(
     val strMeasure9: String? = null,
     @SerializedName("strMeasure10")
     val strMeasure10: String? = null,
-    @SerializedName("strMeasure11")
-    val strMeasure11: String? = null,
-    @SerializedName("strMeasure12")
-    val strMeasure12: String? = null,
-    @SerializedName("strMeasure13")
-    val strMeasure13: String? = null,
-    @SerializedName("strMeasure14")
-    val strMeasure14: String? = null,
-    @SerializedName("strMeasure15")
-    val strMeasure15: String? = null,
-    @SerializedName("strMeasure16")
-    val strMeasure16: String? = null,
-    @SerializedName("strMeasure17")
-    val strMeasure17: String? = null,
-    @SerializedName("strMeasure18")
-    val strMeasure18: String? = null,
-    @SerializedName("strMeasure19")
-    val strMeasure19: String? = null,
-    @SerializedName("strMeasure20")
-    val strMeasure20: String? = null,
     @SerializedName("strSource")
     val strSource: String? = null,
     @SerializedName("strImageSource")
@@ -141,17 +102,7 @@ data class MealDetail(
             strIngredient7 to strMeasure7,
             strIngredient8 to strMeasure8,
             strIngredient9 to strMeasure9,
-            strIngredient10 to strMeasure10,
-            strIngredient11 to strMeasure11,
-            strIngredient12 to strMeasure12,
-            strIngredient13 to strMeasure13,
-            strIngredient14 to strMeasure14,
-            strIngredient15 to strMeasure15,
-            strIngredient16 to strMeasure16,
-            strIngredient17 to strMeasure17,
-            strIngredient18 to strMeasure18,
-            strIngredient19 to strMeasure19,
-            strIngredient20 to strMeasure20
+            strIngredient10 to strMeasure10
         )
         for ((ingredient, measure) in ingredientFields) {
             if (!ingredient.isNullOrBlank()) {
