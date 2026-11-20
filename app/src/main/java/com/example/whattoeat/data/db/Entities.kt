@@ -2,10 +2,8 @@ package com.example.whattoeat.data.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.serialization.Serializable
 
 @Entity(tableName = "favorites")
-@Serializable
 data class FavoriteEntity(
     @PrimaryKey val id: String,
     val title: String,
@@ -22,7 +20,6 @@ data class FavoriteEntity(
 )
 
 @Entity(tableName = "history")
-@Serializable
 data class HistoryEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val recipeId: String,
@@ -40,7 +37,6 @@ data class HistoryEntity(
 )
 
 @Entity(tableName = "recipe_cache")
-@Serializable
 data class RecipeCacheEntity(
     @PrimaryKey val id: String,
     val title: String,

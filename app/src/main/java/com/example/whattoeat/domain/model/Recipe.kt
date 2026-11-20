@@ -1,8 +1,5 @@
 package com.example.whattoeat.domain.model
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class Recipe(
     val id: String,
     val title: String,
@@ -41,7 +38,6 @@ data class Recipe(
     }
 }
 
-@Serializable
 data class Ingredient(
     val name: String,
     val measure: String,
@@ -54,7 +50,6 @@ enum class Difficulty {
     Hard     // Средне
 }
 
-@Serializable
 data class Nutrients(
     val calories: Int? = null,
     val protein: Double? = null,
@@ -65,7 +60,6 @@ data class Nutrients(
     val sodium: Double? = null
 )
 
-@Serializable
 data class UserPreferences(
     val mealType: MealType? = null,
     val maxTimeMinutes: Int? = null,

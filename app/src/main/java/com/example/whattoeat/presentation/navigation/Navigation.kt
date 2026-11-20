@@ -36,7 +36,7 @@ import com.example.whattoeat.presentation.settings.SettingsViewModel
 
 // MARK: - Routes
 
-sealed interface Route {
+sealed class Route {
     @Composable
     fun NavHostController.navigateTo(route: Route) {
         navigate(route.routeString)
@@ -68,16 +68,14 @@ sealed interface Route {
             else -> Route.Onboarding
         }
     }
-}
 
-object Route {
-    data object Onboarding : Route
-    data object Questionnaire : Route
-    data object RecipeList : Route
-    data class RecipeDetail(val recipeId: String) : Route
-    data object Favorites : Route
-    data object History : Route
-    data object Settings : Route
+    object Onboarding : Route()
+    object Questionnaire : Route()
+    object RecipeList : Route()
+    data class RecipeDetail(val recipeId: String) : Route()
+    object Favorites : Route()
+    object History : Route()
+    object Settings : Route()
 }
 
 // MARK: - NavGraph

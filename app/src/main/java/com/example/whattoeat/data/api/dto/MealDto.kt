@@ -1,21 +1,17 @@
 package com.example.whattoeat.data.api.dto
 
 import com.google.gson.annotations.SerializedName
-import kotlinx.serialization.Serializable
 
-@Serializable
 data class MealDbResponse(
     @SerializedName("meals")
     val meals: List<MealSummary>? = emptyList()
 )
 
-@Serializable
 data class MealDetailResponse(
     @SerializedName("meals")
     val meals: List<MealDetail>? = emptyList()
 )
 
-@Serializable
 data class MealSummary(
     @SerializedName("idMeal")
     val idMeal: String,
@@ -25,7 +21,6 @@ data class MealSummary(
     val strMealThumb: String
 )
 
-@Serializable
 data class MealDetail(
     @SerializedName("idMeal")
     val idMeal: String,
@@ -71,7 +66,7 @@ data class MealDetail(
     val strIngredient12: String? = null,
     @SerializedName("strIngredient13")
     val strIngredient13: String? = null,
-    @SerializedName("strIngredient14")
+    @SerializedName("strIngredient13")
     val strIngredient14: String? = null,
     @SerializedName("strIngredient15")
     val strIngredient15: String? = null,
@@ -183,13 +178,11 @@ data class MealDetail(
     }
 }
 
-@Serializable
 data class CategoryListResponse(
     @SerializedName("meals")
     val meals: List<CategoryDto>? = emptyList()
 )
 
-@Serializable
 data class CategoryDto(
     @SerializedName("idCategory")
     val idCategory: String,
@@ -201,25 +194,21 @@ data class CategoryDto(
     val strCategoryDescription: String
 )
 
-@Serializable
 data class AreaListResponse(
     @SerializedName("meals")
     val meals: List<AreaDto>? = emptyList()
 )
 
-@Serializable
 data class AreaDto(
     @SerializedName("strArea")
     val strArea: String
 )
 
-@Serializable
 data class IngredientListResponse(
     @SerializedName("meals")
     val meals: List<IngredientDto>? = emptyList()
 )
 
-@Serializable
 data class IngredientDto(
     @SerializedName("idIngredient")
     val idIngredient: String,
