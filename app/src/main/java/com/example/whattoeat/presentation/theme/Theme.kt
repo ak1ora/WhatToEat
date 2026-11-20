@@ -130,14 +130,14 @@ fun WhatToEatTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = customTypography,
         shapes = Shapes,
         content = content
     )
 }
 
 // Custom Typography
-val Typography = Typography(
+val customTypography = Typography(
     displayLarge = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
