@@ -41,6 +41,7 @@ import com.example.whattoeat.presentation.theme.WhatToEatTheme
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.OriginalSize
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun RecipeDetailScreen(
@@ -297,7 +298,7 @@ fun InfoChip(icon: androidx.compose.ui.graphics.vector.ImageVector, text: String
     ) {
         Icon(imageVector = icon, contentDescription = null, tint = WhatToEatTheme.colorScheme.onBackground, modifier = Modifier.size(16.dp))
         Text(text = text, fontSize = 12.sp, fontWeight = FontWeight.Medium, color = WhatToEatTheme.colorScheme.onBackground)
-    )
+    }
 }
 
 @Composable
@@ -389,6 +390,3 @@ fun LinkRow(title: String, url: String, icon: androidx.compose.ui.graphics.vecto
         Icon(androidx.compose.material3.icons.filled.ArrowForwardIos, contentDescription = null, tint = WhatToEatTheme.colorScheme.onSurfaceVariant, modifier = Modifier.size(20.dp))
     }
 }
-
-// Helper for LocalContext
-import androidx.compose.ui.platform.LocalContext

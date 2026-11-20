@@ -192,11 +192,17 @@ fun FavoritesScreen() {
     import com.example.whattoeat.R
     import com.example.whattoeat.presentation.common.EmptyStateScreen
 
-    EmptyStateScreen(
-        title = stringResource(R.string.favorites_title),
-        subtitle = stringResource(R.string.favorites_empty),
-        icon = androidx.compose.material3.icons.filled.FavoriteBorder
-    )
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        EmptyStateScreen(
+            title = stringResource(R.string.favorites_title),
+            subtitle = stringResource(R.string.favorites_empty),
+            icon = androidx.compose.material3.icons.filled.FavoriteBorder
+        )
+    }
 }
 
 @Composable
@@ -216,9 +222,15 @@ fun HistoryScreen() {
     import com.example.whattoeat.R
     import com.example.whattoeat.presentation.common.EmptyStateScreen
 
-    EmptyStateScreen(
-        title = stringResource(R.string.history_title),
-        subtitle = stringResource(R.string.history_empty),
-        icon = androidx.compose.material3.icons.filled.History
-    )
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        EmptyStateScreen(
+            title = stringResource(R.string.history_title),
+            subtitle = stringResource(R.string.history_empty),
+            icon = androidx.compose.material3.icons.filled.History
+        )
+    }
 }
