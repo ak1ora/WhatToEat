@@ -120,7 +120,7 @@ fun AppButton(
                 Icon(icon, contentDescription = null, tint = colors.contentColor().value)
             }
         }
-    )
+    }
 }
 
 enum class ButtonStyle { Primary, Secondary, Outlined, Text }
@@ -480,13 +480,11 @@ fun AppTopAppBar(
         modifier = modifier,
         title = { Text(text = title, fontSize = 20.sp, fontWeight = FontWeight.Medium) },
         navigationIcon = onBackPress?.let {
-            {
-                IconButton(onClick = it) {
-                    Icon(
-                        androidx.compose.material3.icons.filled.ArrowBack,
-                        contentDescription = "Назад"
-                    )
-                }
+            IconButton(onClick = it) {
+                Icon(
+                    androidx.compose.material3.icons.filled.ArrowBack,
+                    contentDescription = "Назад"
+                )
             }
         },
         actions = actions,
