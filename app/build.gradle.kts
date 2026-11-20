@@ -77,9 +77,9 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     kapt("com.google.dagger:hilt-compiler:2.51.1")
 
-    // Retrofit + Serialization
+    // Retrofit + Serialization (Retrofit 2.10+ has built-in Kotlinx serialization support)
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-kotlinx-serialization:1.0.0")
+    implementation("com.squareup.retrofit2:converter-scalars:2.11.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
@@ -93,9 +93,6 @@ dependencies {
 
     // Coil (image loading)
     implementation("io.coil-kt:coil-compose:2.5.0")
-
-    // Material Date/Time pickers (optional, for future)
-    implementation("androidx.compose.material3:material3-adaptive-navigation-suite")
 
     // Testing
     testImplementation("junit:junit:4.13.2")
