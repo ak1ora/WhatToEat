@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.WhatToEat" parent="androidx.compose.material3.MaterialTheme">
+    <style name="Theme.WhatToEat" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Keep empty - all theming done in Compose -->
     </style>
 </resources>
