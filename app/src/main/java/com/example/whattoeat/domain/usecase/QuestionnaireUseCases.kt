@@ -4,13 +4,14 @@ import com.example.whattoeat.domain.model.Question
 import com.example.whattoeat.domain.model.QuestionFlow
 import com.example.whattoeat.domain.model.UserPreferences
 import com.example.whattoeat.domain.questionnaire.DecisionTree
+import com.example.whattoeat.domain.questionnaire.DecisionTreeImpl
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class GetQuestionFlowUseCase @Inject constructor(
-    private val decisionTree: DecisionTree
-) {
+class GetQuestionFlowUseCase @Inject constructor() {
+    private val decisionTree = DecisionTreeImpl()
+    
     operator fun invoke(): QuestionFlow {
         return QuestionFlow(
             questions = buildQuestions(),
@@ -163,9 +164,9 @@ class GetQuestionFlowUseCase @Inject constructor(
 }
 
 @Singleton
-class ComputePreferencesUseCase @Inject constructor(
-    private val decisionTree: DecisionTree
-) {
+class ComputePreferencesUseCase @Inject constructor() {
+    private val decisionTree = DecisionTreeImpl()
+    
     operator fun invoke(answers: Map<String, com.example.whattoeat.domain.model.Answer>): UserPreferences {
         return decisionTree.computePreferences(answers)
     }
