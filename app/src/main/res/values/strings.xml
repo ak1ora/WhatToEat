@@ -1,0 +1,79 @@
+<resources>
+    <string name="app_name">WhatToEat</string>
+    <string name="app_short_name">WhatToEat</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title">Не знаешь, что приготовить?</string>
+    <string name="onboarding_subtitle">Ответь на пару вопросов — подберем простое и вкусное блюдо под твой случай</string>
+    <string name="onboarding_start_button">Подобрать рецепт</string>
+
+    <!-- Questionnaire -->
+    <string name="questionnaire_progress">Вопрос %1$d из %2$d</string>
+    <string name="questionnaire_found_recipes">Найдено рецептов: %d</string>
+    <string name="questionnaire_next">Далее</string>
+    <string name="questionnaire_skip">Пропустить</string>
+    <string name="questionnaire_back">Назад</string>
+    <string name="questionnaire_complete">Готово! Ищем рецепты…</string>
+
+    <!-- Questions -->
+    <string name="q_meal_type_title">Какой приём пищи?</string>
+    <string name="q_time_title">Сколько времени есть на готовку?</string>
+    <string name="q_difficulty_title">Какой сложности рецепт?</string>
+    <string name="q_cuisine_title">Какую кухню предпочитаешь?</string>
+    <string name="q_ingredients_title">Какие продукты есть под рукой? (можно несколько)</string>
+    <string name="q_exclusions_title">Что исключить? (аллергии, нелюбимое)</string>
+    <string name="q_extra_title">Дополнительные пожелания</string>
+
+    <!-- Recipe List -->
+    <string name="recipe_list_title">Подборка для тебя</string>
+    <string name="recipe_list_empty">Ничего не найдено. Попробуй изменить параметры.</string>
+    <string name="recipe_match_percent">%d%% совпадение</string>
+    <string name="recipe_time_min">%d мин</string>
+    <string name="recipe_difficulty_easy">Очень просто</string>
+    <string name="recipe_difficulty_medium">Просто</string>
+    <string name="recipe_difficulty_hard">Средне</string>
+
+    <!-- Recipe Detail -->
+    <string name="recipe_ingredients">Ингредиенты</string>
+    <string name="recipe_instructions">Приготовление</string>
+    <string name="recipe_nutrients">Питательность (на порцию)</string>
+    <string name="recipe_calories">Калории: %d ккал</string>
+    <string name="recipe_proteins">Белки: %.1f г</string>
+    <string name="recipe_fats">Жиры: %.1f г</string>
+    <string name="recipe_carbs">Углеводы: %.1f г</string>
+    <string name="recipe_servings">Порций: %d</string>
+    <string name="recipe_add_favorite">В избранное</string>
+    <string name="recipe_remove_favorite">Убрать из избранного</string>
+    <string name="recipe_share">Поделиться</string>
+
+    <!-- Favorites / History -->
+    <string name="favorites_title">Избранное</string>
+    <string name="favorites_empty">Пока пусто. Добавь рецепты сердечком ❤️</string>
+    <string name="history_title">История просмотров</string>
+    <string name="history_empty">История пуста</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Настройки</string>
+    <string name="settings_theme">Тема</string>
+    <string name="settings_theme_system">По системе</string>
+    <string name="settings_theme_light">Светлая</string>
+    <string name="settings_theme_dark">Тёмная</string>
+    <string name="settings_language">Язык</string>
+    <string name="settings_spoonacular_key">API Key Spoonacular (опционально)</string>
+    <string name="settings_about">О приложении</string>
+    <string name="settings_version">Версия %s</string>
+
+    <!-- Errors / States -->
+    <string name="error_network">Нет подключения к интернету</string>
+    <string name="error_server">Ошибка сервера. Попробуйте позже.</string>
+    <string name="error_unknown">Что-то пошло не так</string>
+    <string name="error_retry">Повторить</string>
+    <string name="loading">Загрузка…</string>
+
+    <!-- Common -->
+    <string name="cancel">Отмена</string>
+    <string name="save">Сохранить</string>
+    <string name="done">Готово</string>
+    <string name="search">Поиск</string>
+    <string name="filter">Фильтр</string>
+</resources>

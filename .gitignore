@@ -1,0 +1,60 @@
+# Build outputs
+/build
+/app/build
+/*.iml
+/.gradle
+/local.properties
+/.idea
+/*.log
+/Debug
+/Release
+
+# Android Studio
+*.iws
+*.ipr
+*.iml
+*.log
+.idea/
+.gradle/
+build/
+local.properties
+*.apk
+*.ap_
+*.aab
+*.dex
+*.class
+*.jar
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Gradle
+.gradle/
+build/
+
+# Kotlin
+*.kt.metadata
+
+# Room
+schemas/
+
+# Hilt
+app/build/generated/hilt/
+
+# KSP
+app/build/generated/ksp/
+
+# Compose
+compose-cache/
+
+# Local config
+local.properties
+*.keystore
+!/gradle/wrapper/gradle-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr

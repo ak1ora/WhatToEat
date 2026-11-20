@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand colors - will be overridden by Material3 dynamic colors -->
+    <color name="brand_green">#2E7D32</color>
+    <color name="brand_green_light">#4CAF50</color>
+    <color name="brand_green_dark">#1B5E20</color>
+    <color name="brand_orange">#E65100</color>
+    <color name="brand_orange_light">#FF9800</color>
+
+    <!-- Surface variants -->
+    <color name="surface_variant_light">#F5F5F5</color>
+    <color name="surface_variant_dark">#2C2C2C</color>
+
+    <!-- Status colors -->
+    <color name="success_green">#2E7D32</color>
+    <color name="warning_orange">#E65100</color>
+    <color name="error_red">#C62828</color>
+    <color name="info_blue">#1565C0</color>
+</resources>
