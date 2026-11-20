@@ -72,6 +72,9 @@ dependencies {
     implementation("androidx.compose.ui:ui-test-manifest")
     implementation("androidx.compose.material:material-icons-extended")
 
+    // Material3 for Android Views (required for Theme.Material3.DayNight.NoActionBar)
+    implementation("com.google.android.material:material:1.12.0")
+
     // Hilt
     implementation("com.google.dagger:hilt-android:2.51.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
