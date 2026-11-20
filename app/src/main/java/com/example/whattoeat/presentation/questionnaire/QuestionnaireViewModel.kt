@@ -35,12 +35,16 @@ class QuestionnaireViewModel @Inject constructor(
         viewModelScope.launch {
             questionFlow = getQuestionFlowUseCase()
             if (questionFlow != null) {
-                val firstQuestion = questionFlow!.questions.firstOrNull()
-                _state.value = QuestionnaireState.Question(
-                    current = firstQuestion!!,
-                    progress = 0f,
-                    totalQuestions = questionFlow!.questions.size
-                )
+                val firstQuestion = questionFlow!!.questions.firstOrNull()
+                if (firstQuestion != null) {
+                    _state.value = QuestionnaireState.Question(
+                        current = firstQuestion,
+                        progress = 0f,
+                        totalQuestions = questionFlow!!.questions.size
+                    )
+                } else {
+                    _state.value = QuestionnaireState.Error("Не удалось загрузить вопросы")
+                }
             } else {
                 _state.value = QuestionnaireState.Error("Не удалось загрузить вопросы")
             }
