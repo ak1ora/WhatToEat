@@ -6,6 +6,7 @@ import com.example.whattoeat.domain.questionnaire.DecisionTree
 import com.example.whattoeat.domain.questionnaire.DecisionTreeImpl
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
@@ -18,7 +19,7 @@ abstract class RepositoryModule {
     @Singleton
     abstract fun bindRecipeRepository(impl: RecipeRepositoryImpl): RecipeRepository
 
-    @Binds
+    @Provides
     @Singleton
-    abstract fun bindDecisionTree(impl: DecisionTreeImpl): DecisionTree
+    fun provideDecisionTree(): DecisionTree = DecisionTreeImpl()
 }
