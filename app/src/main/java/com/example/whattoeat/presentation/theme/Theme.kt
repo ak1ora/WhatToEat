@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
@@ -18,6 +19,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextStyle
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.example.whattoeat.R
@@ -131,108 +137,108 @@ fun WhatToEatTheme(
 }
 
 // Custom Typography
-val Typography = androidx.compose.material3.Typography(
-    displayLarge = androidx.compose.material3.TextStyle(
-        fontFamily = androidx.compose.ui.text.font.FontFamily.Default,
-        fontWeight = androidx.compose.ui.text.font.FontWeight.Normal,
+val Typography = Typography(
+    displayLarge = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
         fontSize = 57.sp,
         lineHeight = 64.sp,
         letterSpacing = -0.25.sp
     ),
-    displayMedium = androidx.compose.material3.TextStyle(
-        fontFamily = androidx.compose.ui.text.font.FontFamily.Default,
-        fontWeight = androidx.compose.ui.text.font.FontWeight.Normal,
+    displayMedium = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
         fontSize = 45.sp,
         lineHeight = 52.sp,
         letterSpacing = 0.sp
     ),
-    displaySmall = androidx.compose.material3.TextStyle(
-        fontFamily = androidx.compose.ui.text.font.FontFamily.Default,
-        fontWeight = androidx.compose.ui.text.font.FontWeight.Normal,
+    displaySmall = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
         fontSize = 36.sp,
         lineHeight = 44.sp,
         letterSpacing = 0.sp
     ),
-    headlineLarge = androidx.compose.material3.TextStyle(
-        fontFamily = androidx.compose.ui.text.font.FontFamily.Default,
-        fontWeight = androidx.compose.ui.text.font.FontWeight.Normal,
+    headlineLarge = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
         fontSize = 32.sp,
         lineHeight = 40.sp,
         letterSpacing = 0.sp
     ),
-    headlineMedium = androidx.compose.material3.TextStyle(
-        fontFamily = androidx.compose.ui.text.font.FontFamily.Default,
-        fontWeight = androidx.compose.ui.text.font.FontWeight.Normal,
+    headlineMedium = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
         fontSize = 28.sp,
         lineHeight = 36.sp,
         letterSpacing = 0.sp
     ),
-    headlineSmall = androidx.compose.material3.TextStyle(
-        fontFamily = androidx.compose.ui.text.font.FontFamily.Default,
-        fontWeight = androidx.compose.ui.text.font.FontWeight.Normal,
+    headlineSmall = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
         fontSize = 24.sp,
         lineHeight = 32.sp,
         letterSpacing = 0.sp
     ),
-    titleLarge = androidx.compose.material3.TextStyle(
-        fontFamily = androidx.compose.ui.text.font.FontFamily.Default,
-        fontWeight = androidx.compose.ui.text.font.FontWeight.Medium,
+    titleLarge = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Medium,
         fontSize = 22.sp,
         lineHeight = 28.sp,
         letterSpacing = 0.sp
     ),
-    titleMedium = androidx.compose.material3.TextStyle(
-        fontFamily = androidx.compose.ui.text.font.FontFamily.Default,
-        fontWeight = androidx.compose.ui.text.font.FontWeight.Medium,
+    titleMedium = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Medium,
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.15.sp
     ),
-    titleSmall = androidx.compose.material3.TextStyle(
-        fontFamily = androidx.compose.ui.text.font.FontFamily.Default,
-        fontWeight = androidx.compose.ui.text.font.FontWeight.Medium,
+    titleSmall = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
         lineHeight = 20.sp,
         letterSpacing = 0.1.sp
     ),
-    bodyLarge = androidx.compose.material3.TextStyle(
-        fontFamily = androidx.compose.ui.text.font.FontFamily.Default,
-        fontWeight = androidx.compose.ui.text.font.FontWeight.Normal,
+    bodyLarge = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     ),
-    bodyMedium = androidx.compose.material3.TextStyle(
-        fontFamily = androidx.compose.ui.text.font.FontFamily.Default,
-        fontWeight = androidx.compose.ui.text.font.FontWeight.Normal,
+    bodyMedium = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
         lineHeight = 20.sp,
         letterSpacing = 0.25.sp
     ),
-    bodySmall = androidx.compose.material3.TextStyle(
-        fontFamily = androidx.compose.ui.text.font.FontFamily.Default,
-        fontWeight = androidx.compose.ui.text.font.FontWeight.Normal,
+    bodySmall = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Normal,
         fontSize = 12.sp,
         lineHeight = 16.sp,
         letterSpacing = 0.4.sp
     ),
-    labelLarge = androidx.compose.material3.TextStyle(
-        fontFamily = androidx.compose.ui.text.font.FontFamily.Default,
-        fontWeight = androidx.compose.ui.text.font.FontWeight.Medium,
+    labelLarge = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
         lineHeight = 20.sp,
         letterSpacing = 0.1.sp
     ),
-    labelMedium = androidx.compose.material3.TextStyle(
-        fontFamily = androidx.compose.ui.text.font.FontFamily.Default,
-        fontWeight = androidx.compose.ui.text.font.FontWeight.Medium,
+    labelMedium = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Medium,
         fontSize = 12.sp,
         lineHeight = 16.sp,
         letterSpacing = 0.5.sp
     ),
-    labelSmall = androidx.compose.material3.TextStyle(
-        fontFamily = androidx.compose.ui.text.font.FontFamily.Default,
-        fontWeight = androidx.compose.ui.text.font.FontWeight.Medium,
+    labelSmall = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Medium,
         fontSize = 11.sp,
         lineHeight = 16.sp,
         letterSpacing = 0.5.sp
@@ -240,10 +246,10 @@ val Typography = androidx.compose.material3.Typography(
 )
 
 // Custom Shapes
-val Shapes = androidx.compose.material3.Shapes(
-    extraSmall = androidx.compose.foundation.shape.RoundedCornerShape(4.dp),
-    small = androidx.compose.foundation.shape.RoundedCornerShape(8.dp),
-    medium = androidx.compose.foundation.shape.RoundedCornerShape(12.dp),
-    large = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
-    extraLarge = androidx.compose.foundation.shape.RoundedCornerShape(24.dp)
+val Shapes = MaterialTheme.shapes.copy(
+    extraSmall = RoundedCornerShape(4.dp),
+    small = RoundedCornerShape(8.dp),
+    medium = RoundedCornerShape(12.dp),
+    large = RoundedCornerShape(16.dp),
+    extraLarge = RoundedCornerShape(24.dp)
 )
