@@ -1,6 +1,6 @@
 package com.example.whattoeat.presentation.questionnaire
 
-import androidx.hilt.lifecycle.HiltViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.whattoeat.domain.model.Answer
