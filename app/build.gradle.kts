@@ -3,7 +3,6 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.plugin.serialization")
-    id("com.google.devtools.ksp")
     id("org.jetbrains.kotlin.kapt")
 }
 
@@ -108,8 +107,4 @@ dependencies {
 
 kapt {
     correctErrorTypes = true
-}
-
-ksp {
-    arg("room.schemaLocation", "$projectDir/schemas")
 }
