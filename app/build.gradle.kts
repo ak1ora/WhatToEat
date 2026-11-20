@@ -79,6 +79,9 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
     kapt("com.google.dagger:hilt-compiler:2.51.1")
 
+    // Gson (for Retrofit converter)
+    implementation("com.google.code.gson:gson:2.10.1")
+
     // Retrofit + Serialization (Retrofit 2.10+ has built-in Kotlinx serialization support)
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-scalars:2.11.0")
