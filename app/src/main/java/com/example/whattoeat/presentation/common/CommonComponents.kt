@@ -24,6 +24,20 @@ import androidx.compose.material3.icons.filled.ArrowBack
 import androidx.compose.material3.icons.filled.ErrorOutline
 import androidx.compose.material3.icons.filled.Refresh
 import androidx.compose.material3.icons.filled.Search
+import androidx.compose.material3.icons.filled.Favorite
+import androidx.compose.material3.icons.filled.FavoriteBorder
+import androidx.compose.material3.icons.filled.CheckCircle
+import androidx.compose.material3.icons.filled.Schedule
+import androidx.compose.material3.icons.filled.TrendingUp
+import androidx.compose.material3.icons.filled.Restaurant
+import androidx.compose.material3.icons.filled.ArrowForward
+import androidx.compose.material3.icons.filled.PlayCircle
+import androidx.compose.material3.icons.filled.Language
+import androidx.compose.material3.icons.filled.Share
+import androidx.compose.material3.icons.filled.Check
+import androidx.compose.material3.icons.filled.CheckBox
+import androidx.compose.material3.icons.filled.CheckBoxOutlineBlank
+import androidx.compose.material3.icons.filled.RadioButtonUnchecked
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -39,13 +53,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.whattoeat.R
 import com.example.whattoeat.presentation.theme.WhatToEatTheme
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import coil.size.OriginalSize
+import androidx.compose.ui.platform.LocalContext
 
 // MARK: - Buttons
 
@@ -107,7 +120,7 @@ fun AppButton(
                 Icon(icon, contentDescription = null, tint = colors.contentColor().value)
             }
         }
-    }
+    )
 }
 
 enum class ButtonStyle { Primary, Secondary, Outlined, Text }
@@ -173,7 +186,7 @@ fun RecipeCard(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .size(80.dp)
-                    .clip(RoundedCornerShape(8.dp))
+                    .clip(RoundedCornerShape(8.dp)),
                 error = {
                     Box(
                         modifier = Modifier.size(80.dp)
@@ -483,6 +496,3 @@ fun AppTopAppBar(
         )
     )
 }
-
-// MARK: - Helper for LocalContext
-import androidx.compose.ui.platform.LocalContext
