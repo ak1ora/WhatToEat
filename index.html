@@ -1641,6 +1641,22 @@
                 tags: ['рыба', 'рис', 'салат'],
                 match: 82,
                 url: 'https://povar.ru/recipes/salat_s_tuncom_risom_i_syrom-32772.html'
+            },
+            {
+                id: 21,
+                title: 'Жареный рис с курицей, яйцом и овощами',
+                time: 20,
+                difficulty: 'Easy',
+                cuisine: 'Asian',
+                meal: 'Dinner',
+                ingredients: ['готовый рис', 'курица', 'яйца', 'морковь', 'зелёный горошек', 'овощи'],
+                ingredientIds: ['chicken', 'rice', 'eggs', 'vegetables'],
+                restrictionIds: ['eggs', 'soy', 'onion_garlic'],
+                dietTags: [],
+                tags: ['курица', 'рис', 'яйца', 'овощи', 'быстрый ужин'],
+                note: '20 минут, если рис уже сварен',
+                match: 96,
+                url: 'https://m.povar.ru/recipes/kitaiskii_jarenyi_ris_s_kuricei-81120.html'
             }
         ];
 
@@ -1914,6 +1930,7 @@
                     <div class="recipe-ingredients">
                         <strong>Ингредиенты:</strong> ${r.ingredients.join(', ')}
                     </div>
+                    ${r.note ? `<div class="recipe-meta" style="margin-top:8px;">💡 ${r.note}</div>` : ''}
                     <a class="recipe-link" href="${r.url}" target="_blank" rel="noopener">
                         📖 Смотреть рецепт
                     </a>
