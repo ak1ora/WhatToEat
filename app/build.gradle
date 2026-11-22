@@ -1,0 +1,28 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'ru.whattocook'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'ru.whattocook'
+        minSdk 23
+        targetSdk 35
+        versionCode 1
+        versionName '1.0'
+    }
+
+}
+
+def webAppAssets = layout.buildDirectory.dir('generated/web-assets')
+tasks.register('copyWebApp', Copy) {
+    from rootProject.layout.projectDirectory.file('index.html')
+    into webAppAssets
+}
+
+android.sourceSets.main.assets.srcDir(webAppAssets)
+tasks.named('preBuild').configure {
+    dependsOn tasks.named('copyWebApp')
+}

@@ -1,0 +1,1976 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatToEat - Что приготовить?</title>
+    <style>
+        :root {
+            /* Light theme (default) */
+            --bg-primary: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --bg-card: #ffffff;
+            --bg-card-hover: #f1f8e9;
+            --bg-secondary: #f5f5f5;
+            --bg-input: #ffffff;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --text-muted: #888888;
+            --border-color: #e0e0e0;
+            --border-focus: #2E7D32;
+            --primary-color: #2E7D32;
+            --primary-light: #4CAF50;
+            --primary-bg: #e8f5e9;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --option-border: #e0e0e0;
+            --option-selected-bg: #e8f5e9;
+            --input-bg: #ffffff;
+            --input-border: #e0e0e0;
+            --text-input: #333333;
+            --slider-track: #e0e0e0;
+            --slider-thumb: #2E7D32;
+            --shadow-thumb: rgba(46, 125, 50, 0.3);
+            --btn-primary-bg: linear-gradient(135deg, #2E7D32, #4CAF50);
+            --btn-primary-text: #ffffff;
+            --btn-secondary-bg: #f5f5f5;
+            --btn-secondary-text: #666666;
+            --btn-secondary-border: #e0e0e0;
+            --btn-disabled: #cccccc;
+            --recipe-card-bg: #fafafa;
+            --recipe-border: #eeeeee;
+            --result-title: #333333;
+            --result-desc: #666666;
+            --header-title: #2E7D32;
+            --header-subtitle: #666666;
+            --question-title: #333333;
+            --question-desc: #666666;
+            --progress-bg: #e0e0e0;
+            --progress-text: #888888;
+            --btn-primary-bg: linear-gradient(135deg, #2E7D32, #4CAF50);
+            --btn-primary-text: #ffffff;
+            --btn-secondary-bg: #f5f5f5;
+            --btn-secondary-text: #666666;
+            --btn-secondary-border: #e0e0e0;
+            --recipe-card-bg: #fafafa;
+            --recipe-border: #eeeeee;
+            --recipe-title: #333333;
+            --recipe-meta: #888888;
+            --recipe-ingredients: #555555;
+            --toggle-bg: #f0f0f0;
+            --toggle-thumb: #ffffff;
+            --toggle-active-bg: #2E7D32;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            --bg-card: #1e1e2e;
+            --bg-card-hover: #2a2a3e;
+            --bg-secondary: #25253a;
+            --bg-input: #2a2a3e;
+            --text-primary: #e8e8e8;
+            --text-secondary: #b0b0b0;
+            --text-muted: #888888;
+            --border-color: #3a3a4a;
+            --border-focus: #4CAF50;
+            --primary-color: #4CAF50;
+            --primary-light: #66BB6A;
+            --primary-bg: #1b3a1b;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --option-border: #3a3a4a;
+            --option-selected-bg: #1b3a1b;
+            --input-bg: #2a2a3e;
+            --input-border: #3a3a4a;
+            --text-input: #e8e8e8;
+            --slider-track: #3a3a4a;
+            --slider-thumb: #4CAF50;
+            --shadow-thumb: rgba(76, 175, 80, 0.4);
+            --btn-primary-bg: linear-gradient(135deg, #4CAF50, #66BB6A);
+            --btn-primary-text: #ffffff;
+            --btn-secondary-bg: #2a2a3a;
+            --btn-secondary-text: #b0b0b0;
+            --btn-secondary-border: #3a3a4a;
+            --btn-disabled: #555555;
+            --recipe-card-bg: #252536;
+            --recipe-border: #3a3a4a;
+            --result-title: #e8e8e8;
+            --result-desc: #b0b0b0;
+            --header-title: #4CAF50;
+            --header-subtitle: #b0b0b0;
+            --question-title: #e8e8e8;
+            --question-desc: #b0b0b0;
+            --progress-bg: #3a3a4a;
+            --progress-text: #888888;
+            --btn-primary-bg: linear-gradient(135deg, #4CAF50, #66BB6A);
+            --btn-primary-text: #ffffff;
+            --btn-secondary-bg: #2a2a3a;
+            --btn-secondary-text: #b0b0b0;
+            --btn-secondary-border: #3a3a4a;
+            --recipe-card-bg: #252536;
+            --recipe-border: #3a3a4a;
+            --recipe-title: #e8e8e8;
+            --recipe-meta: #b0b0b0;
+            --recipe-ingredients: #cccccc;
+            --toggle-bg: #3a3a4a;
+            --toggle-thumb: #ffffff;
+            --toggle-active-bg: #4CAF50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text-primary);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .header h1 {
+            color: var(--header-title);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: var(--header-subtitle);
+            font-size: 1.1rem;
+        }
+        .card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .question {
+            display: none;
+        }
+        .question.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .question-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--question-title);
+            margin-bottom: 8px;
+        }
+        .question-desc {
+            color: var(--question-desc);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        .progress-bar {
+            height: 4px;
+            background: var(--progress-bg);
+            border-radius: 2px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        .progress-text {
+            font-size: 0.85rem;
+            color: var(--progress-text);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .options {
+            display: grid;
+            gap: 12px;
+        }
+        .option {
+            padding: 16px;
+            border: 2px solid var(--option-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-card);
+        }
+        .option:hover {
+            border-color: var(--primary-color);
+            background: var(--bg-card-hover);
+        }
+        .option.selected {
+            border-color: var(--primary-color);
+            background: var(--option-selected-bg);
+        }
+        .option input {
+            display: none;
+        }
+        .option-icon {
+            font-size: 1.5rem;
+        }
+        .option-text {
+            flex: 1;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+        .option-check {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: white;
+            transition: all 0.2s;
+        }
+        .option.selected .option-check {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .slider-container {
+            margin-top: 16px;
+        }
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            -webkit-appearance: none;
+            background: var(--slider-track);
+            border-radius: 3px;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--slider-thumb);
+            cursor: pointer;
+            box-shadow: 0 2px 6px var(--shadow-thumb);
+        }
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: var(--btn-primary-bg);
+            color: var(--btn-primary-text);
+        }
+        .btn-primary:disabled {
+            background: var(--btn-disabled);
+            cursor: not-allowed;
+        }
+        .btn-secondary {
+            background: var(--btn-secondary-bg);
+            color: var(--btn-secondary-text);
+            border: 2px solid var(--btn-secondary-border);
+        }
+        .result-card {
+            text-align: center;
+            padding: 32px 24px;
+        }
+        .result-icon {
+            font-size: 4rem;
+            margin-bottom: 16px;
+        }
+        .result-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--result-title);
+            margin-bottom: 8px;
+        }
+        .result-desc {
+            color: var(--result-desc);
+            margin-bottom: 24px;
+        }
+        .recipe-list {
+            display: grid;
+            gap: 16px;
+        }
+        .recipe-card {
+            background: var(--recipe-card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--recipe-border);
+        }
+        .recipe-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--recipe-title);
+            margin-bottom: 8px;
+        }
+        .recipe-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 0.85rem;
+            color: var(--recipe-meta);
+            margin-bottom: 12px;
+        }
+        .recipe-ingredients {
+            font-size: 0.9rem;
+            color: var(--recipe-ingredients);
+            line-height: 1.6;
+        }
+        .recipe-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: var(--btn-primary-bg);
+            color: var(--btn-primary-text);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .recipe-link:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        .recipe-link:active {
+            transform: translateY(0);
+        }
+        .hidden {
+            display: none !important;
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 48px;
+            height: 28px;
+            border-radius: 14px;
+            background: var(--toggle-bg);
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 2px;
+            transition: all 0.3s ease;
+        }
+        .theme-toggle.active {
+            background: var(--toggle-active-bg);
+            border-color: var(--toggle-active-bg);
+        }
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--toggle-thumb);
+            left: 2px;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        .theme-toggle.active::before {
+            left: calc(100% - 24px);
+        }
+        [data-theme="dark"] .theme-toggle::before {
+            background: var(--toggle-thumb);
+        }
+        .header {
+            position: relative;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: var(--header-title);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: var(--header-subtitle);
+            font-size: 1.1rem;
+        }
+        .card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .question {
+            display: none;
+        }
+        .question.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .question-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--question-title);
+            margin-bottom: 8px;
+        }
+        .question-desc {
+            color: var(--question-desc);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        .progress-bar {
+            height: 4px;
+            background: var(--progress-bg);
+            border-radius: 2px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        .progress-text {
+            font-size: 0.85rem;
+            color: var(--progress-text);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .options {
+            display: grid;
+            gap: 12px;
+        }
+        .option {
+            padding: 16px;
+            border: 2px solid var(--option-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-card);
+        }
+        .option:hover {
+            border-color: var(--primary-color);
+            background: var(--bg-card-hover);
+        }
+        .option.selected {
+            border-color: var(--primary-color);
+            background: var(--option-selected-bg);
+        }
+        .option input {
+            display: none;
+        }
+        .option-icon {
+            font-size: 1.5rem;
+        }
+        .option-text {
+            flex: 1;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+        .option-check {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: white;
+            transition: all 0.2s;
+        }
+        .option.selected .option-check {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .slider-container {
+            margin-top: 16px;
+        }
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            -webkit-appearance: none;
+            background: var(--slider-track);
+            border-radius: 3px;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--slider-thumb);
+            cursor: pointer;
+            box-shadow: 0 2px 6px var(--shadow-thumb);
+        }
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: var(--btn-primary-bg);
+            color: var(--btn-primary-text);
+        }
+        .btn-primary:disabled {
+            background: var(--btn-disabled);
+            cursor: not-allowed;
+        }
+        .btn-secondary {
+            background: var(--btn-secondary-bg);
+            color: var(--btn-secondary-text);
+            border: 2px solid var(--btn-secondary-border);
+        }
+        .result-card {
+            text-align: center;
+            padding: 32px 24px;
+        }
+        .result-icon {
+            font-size: 4rem;
+            margin-bottom: 16px;
+        }
+        .result-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--result-title);
+            margin-bottom: 8px;
+        }
+        .result-desc {
+            color: var(--result-desc);
+            margin-bottom: 24px;
+        }
+        .recipe-list {
+            display: grid;
+            gap: 16px;
+        }
+        .recipe-card {
+            background: var(--recipe-card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--recipe-border);
+        }
+        .recipe-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--recipe-title);
+            margin-bottom: 8px;
+        }
+        .recipe-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 0.85rem;
+            color: var(--recipe-meta);
+            margin-bottom: 12px;
+        }
+        .recipe-ingredients {
+            font-size: 0.9rem;
+            color: var(--recipe-ingredients);
+            line-height: 1.6;
+        }
+        .recipe-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: var(--btn-primary-bg);
+            color: var(--btn-primary-text);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .recipe-link:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        .recipe-link:active {
+            transform: translateY(0);
+        }
+        .hidden {
+            display: none !important;
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 48px;
+            height: 28px;
+            border-radius: 14px;
+            background: var(--toggle-bg);
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 2px;
+            transition: all 0.3s ease;
+        }
+        .theme-toggle.active {
+            background: var(--toggle-active-bg);
+            border-color: var(--toggle-active-bg);
+        }
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--toggle-thumb);
+            left: 2px;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        .theme-toggle.active::before {
+            left: calc(100% - 24px);
+        }
+        [data-theme="dark"] .theme-toggle::before {
+            background: var(--toggle-thumb);
+        }
+        .header {
+            position: relative;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: var(--header-title);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: var(--header-subtitle);
+            font-size: 1.1rem;
+        }
+        .card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .question {
+            display: none;
+        }
+        .question.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .question-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--question-title);
+            margin-bottom: 8px;
+        }
+        .question-desc {
+            color: var(--question-desc);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        .progress-bar {
+            height: 4px;
+            background: var(--progress-bg);
+            border-radius: 2px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        .progress-text {
+            font-size: 0.85rem;
+            color: var(--progress-text);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .options {
+            display: grid;
+            gap: 12px;
+        }
+        .option {
+            padding: 16px;
+            border: 2px solid var(--option-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-card);
+        }
+        .option:hover {
+            border-color: var(--primary-color);
+            background: var(--bg-card-hover);
+        }
+        .option.selected {
+            border-color: var(--primary-color);
+            background: var(--option-selected-bg);
+        }
+        .option input {
+            display: none;
+        }
+        .option-icon {
+            font-size: 1.5rem;
+        }
+        .option-text {
+            flex: 1;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+        .option-check {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: white;
+            transition: all 0.2s;
+        }
+        .option.selected .option-check {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .slider-container {
+            margin-top: 16px;
+        }
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            -webkit-appearance: none;
+            background: var(--slider-track);
+            border-radius: 3px;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--slider-thumb);
+            cursor: pointer;
+            box-shadow: 0 2px 6px var(--shadow-thumb);
+        }
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: var(--btn-primary-bg);
+            color: var(--btn-primary-text);
+        }
+        .btn-primary:disabled {
+            background: var(--btn-disabled);
+            cursor: not-allowed;
+        }
+        .btn-secondary {
+            background: var(--btn-secondary-bg);
+            color: var(--btn-secondary-text);
+            border: 2px solid var(--btn-secondary-border);
+        }
+        .result-card {
+            text-align: center;
+            padding: 32px 24px;
+        }
+        .result-icon {
+            font-size: 4rem;
+            margin-bottom: 16px;
+        }
+        .result-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--result-title);
+            margin-bottom: 8px;
+        }
+        .result-desc {
+            color: var(--result-desc);
+            margin-bottom: 24px;
+        }
+        .recipe-list {
+            display: grid;
+            gap: 16px;
+        }
+        .recipe-card {
+            background: var(--recipe-card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--recipe-border);
+        }
+        .recipe-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--recipe-title);
+            margin-bottom: 8px;
+        }
+        .recipe-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 0.85rem;
+            color: var(--recipe-meta);
+            margin-bottom: 12px;
+        }
+        .recipe-ingredients {
+            font-size: 0.9rem;
+            color: var(--recipe-ingredients);
+            line-height: 1.6;
+        }
+        .recipe-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: var(--btn-primary-bg);
+            color: var(--btn-primary-text);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .recipe-link:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        .recipe-link:active {
+            transform: translateY(0);
+        }
+        .hidden {
+            display: none !important;
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 48px;
+            height: 28px;
+            border-radius: 14px;
+            background: var(--toggle-bg);
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 2px;
+            transition: all 0.3s ease;
+        }
+        .theme-toggle.active {
+            background: var(--toggle-active-bg);
+            border-color: var(--toggle-active-bg);
+        }
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--toggle-thumb);
+            left: 2px;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        .theme-toggle.active::before {
+            left: calc(100% - 24px);
+        }
+        [data-theme="dark"] .theme-toggle::before {
+            background: var(--toggle-thumb);
+        }
+        .header {
+            position: relative;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: var(--header-title);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: var(--header-subtitle);
+            font-size: 1.1rem;
+        }
+        .card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+            transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .question {
+            display: none;
+        }
+        .question.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .question-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--question-title);
+            margin-bottom: 8px;
+        }
+        .question-desc {
+            color: var(--question-desc);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        .progress-bar {
+            height: 4px;
+            background: var(--progress-bg);
+            border-radius: 2px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        .progress-text {
+            font-size: 0.85rem;
+            color: var(--progress-text);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .options {
+            display: grid;
+            gap: 12px;
+        }
+        .option {
+            padding: 16px;
+            border: 2px solid var(--option-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-card);
+        }
+        .option:hover {
+            border-color: var(--primary-color);
+            background: var(--bg-card-hover);
+        }
+        .option.selected {
+            border-color: var(--primary-color);
+            background: var(--option-selected-bg);
+        }
+        .option input {
+            display: none;
+        }
+        .option-icon {
+            font-size: 1.5rem;
+        }
+        .option-text {
+            flex: 1;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+        .option-check {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: white;
+            transition: all 0.2s;
+        }
+        .option.selected .option-check {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .slider-container {
+            margin-top: 16px;
+        }
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            -webkit-appearance: none;
+            background: var(--slider-track);
+            border-radius: 3px;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--slider-thumb);
+            cursor: pointer;
+            box-shadow: 0 2px 6px var(--shadow-thumb);
+        }
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: var(--btn-primary-bg);
+            color: var(--btn-primary-text);
+        }
+        .btn-primary:disabled {
+            background: var(--btn-disabled);
+            cursor: not-allowed;
+        }
+        .btn-secondary {
+            background: var(--btn-secondary-bg);
+            color: var(--btn-secondary-text);
+            border: 2px solid var(--btn-secondary-border);
+        }
+        .result-card {
+            text-align: center;
+            padding: 32px 24px;
+        }
+        .result-icon {
+            font-size: 4rem;
+            margin-bottom: 16px;
+        }
+        .result-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--result-title);
+            margin-bottom: 8px;
+        }
+        .result-desc {
+            color: var(--result-desc);
+            margin-bottom: 24px;
+        }
+        .recipe-list {
+            display: grid;
+            gap: 16px;
+        }
+        .recipe-card {
+            background: var(--recipe-card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--recipe-border);
+        }
+        .recipe-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--recipe-title);
+            margin-bottom: 8px;
+        }
+        .recipe-meta {
+            display: flex;
+            gap: 16px;
+            font-size: 0.85rem;
+            color: var(--recipe-meta);
+            margin-bottom: 12px;
+        }
+        .recipe-ingredients {
+            font-size: 0.9rem;
+            color: var(--recipe-ingredients);
+            line-height: 1.6;
+        }
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍽️ WhatToEat</h1>
+            <p>Не знаешь, что приготовить? Ответь на пару вопросов — подберем идеальный рецепт</p>
+            <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" aria-label="Переключить тему"></button>
+        </div>
+
+        <!-- Вопросники -->
+        <div class="card">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 14%"></div>
+            </div>
+            <p class="progress-text" id="progressText">Вопрос 1 из 7</p>
+
+            <!-- 1. Приём пищи -->
+            <div class="question active" id="q1">
+                <h3 class="question-title">Какой приём пищи?</h3>
+                <p class="question-desc">Выбери, когда планируешь есть</p>
+                <div class="options" id="mealOptions"></div>
+            </div>
+
+            <!-- 2. Время -->
+            <div class="question" id="q2">
+                <h3 class="question-title">Сколько времени есть на готовку?</h3>
+                <p class="question-desc">Включая подготовку ингредиентов</p>
+                <div class="slider-container">
+                    <div class="slider-label">
+                        <span>Минимум</span>
+                        <span id="timeValue">30 мин</span>
+                        <span>Максимум</span>
+                    </div>
+                    <input type="range" id="timeSlider" min="5" max="120" step="5" value="30">
+                </div>
+            </div>
+
+            <!-- 3. Сложность -->
+            <div class="question" id="q3">
+                <h3 class="question-title">Какой сложности рецепт?</h3>
+                <p class="question-desc">Выбери уровень сложности</p>
+                <div class="options" id="difficultyOptions"></div>
+            </div>
+
+            <!-- 4. Кухня -->
+            <div class="question" id="q4">
+                <h3 class="question-title">Какую кухню предпочитаешь?</h3>
+                <p class="question-desc">Или выбери «Любая» для разнообразия</p>
+                <div class="options" id="cuisineOptions"></div>
+            </div>
+
+            <!-- 5. Продукты -->
+            <div class="question" id="q5">
+                <h3 class="question-title">Какие продукты есть под рукой?</h3>
+                <p class="question-desc">Выбери всё, что есть (можно несколько)</p>
+                <div class="options" id="ingredientOptions"></div>
+            </div>
+
+            <!-- 6. Исключения -->
+            <div class="question" id="q6">
+                <h3 class="question-title">Что исключить?</h3>
+                <p class="question-desc">Аллергии, нелюбимые продукты или диетические ограничения</p>
+                <div class="options" id="exclusionOptions"></div>
+            </div>
+
+            <!-- 7. Дополнительно -->
+            <div class="question" id="q7">
+                <h3 class="question-title">Дополнительные пожелания</h3>
+                <p class="question-desc">Например: «до 500 ккал», «много белка», «без сахара», «на сковороде»</p>
+                <textarea id="extraInput" placeholder="Напиши свои пожелания..." style="width: 100%; min-height: 100px; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px; font-family: inherit; font-size: 1rem; resize: vertical;"></textarea>
+            </div>
+
+            <div class="btn-group">
+                <button class="btn btn-secondary" id="btnBack" onclick="prevQuestion()">Назад</button>
+                <button class="btn btn-primary" id="btnNext" onclick="nextQuestion()">Далее</button>
+            </div>
+        </div>
+
+        <!-- Результаты -->
+        <div class="card hidden" id="resultsCard">
+            <div class="result-card">
+                <div class="result-icon" id="resultIcon">🍽️</div>
+                <h2 class="result-title" id="resultTitle">Подборка для тебя</h2>
+                <p class="result-desc" id="resultDesc">Нашлось 5 рецептов под твои параметры</p>
+            </div>
+            <div class="recipe-list" id="recipeList"></div>
+            <button class="btn btn-primary" style="width: 100%; margin-top: 16px;" onclick="restart()">Начать заново</button>
+        </div>
+    </div>
+
+    <script>
+        // Данные для вопросов
+        const meals = [
+            { id: 'Breakfast', label: 'Завтрак', desc: 'Лёгкое и сытное утро', icon: '🌅' },
+            { id: 'Lunch', label: 'Обед', desc: 'Основной приём пищи дня', icon: '☀️' },
+            { id: 'Dinner', label: 'Ужин', desc: 'Лёгкий вечерний приём', icon: '🌙' },
+            { id: 'Snack', label: 'Перекус', desc: 'Быстро перекусить', icon: '🍎' }
+        ];
+
+        const difficulties = [
+            { id: 'Easy', label: 'Очень просто', desc: 'Минимум действий, 3-5 ингредиентов', icon: '⚡' },
+            { id: 'Medium', label: 'Просто', desc: 'Обычный рецепт, 6-10 ингредиентов', icon: '👨‍🍳' },
+            { id: 'Hard', label: 'Средне', desc: 'Требует времени и навыков', icon: '🍳' }
+        ];
+
+        const cuisines = [
+            { id: 'any', label: 'Любая', desc: 'Сюрприз меня!', icon: '🎲' },
+            { id: 'Russian', label: 'Русская', desc: 'Борщ, пельмени, каши', icon: '🇷🇺' },
+            { id: 'Italian', label: 'Итальянская', desc: 'Паста, пицца, ризотто', icon: '🇮🇹' },
+            { id: 'Asian', label: 'Азиатская', desc: 'Вок, суши, карри', icon: '🥢' },
+            { id: 'Mexican', label: 'Мексиканская', desc: 'Тако, буррито, начос', icon: '🌮' },
+            { id: 'Mediterranean', label: 'Средиземноморская', desc: 'Салаты, рыба, оливки', icon: '🫒' },
+            { id: 'American', label: 'Американская', desc: 'Бургеры, стейки, ббк', icon: '🇺🇸' },
+            { id: 'Vegetarian', label: 'Вегетарианская', desc: 'Без мяса и рыбы', icon: '🥗' },
+            { id: 'Vegan', label: 'Веганская', desc: 'Полностью растительная', icon: '🌱' },
+            { id: 'Healthy', label: 'ЗОЖ', desc: 'Низкокалорийное, сбалансированное', icon: '💪' }
+        ];
+
+        const ingredients = [
+            { id: 'chicken', label: 'Курица', icon: '🍗' },
+            { id: 'eggs', label: 'Яйца', icon: '🥚' },
+            { id: 'cottage cheese', label: 'Творог', icon: '🧀' },
+            { id: 'pasta', label: 'Паста/макароны', icon: '🍝' },
+            { id: 'rice', label: 'Рис', icon: '🍚' },
+            { id: 'potatoes', label: 'Картофель', icon: '🥔' },
+            { id: 'buckwheat', label: 'Гречка', icon: '🌾' },
+            { id: 'vegetables', label: 'Овощи', icon: '🥕' },
+            { id: 'tomatoes', label: 'Помидоры', icon: '🍅' },
+            { id: 'onion', label: 'Лук', icon: '🧅' },
+            { id: 'garlic', label: 'Чеснок', icon: '🧄' },
+            { id: 'cheese', label: 'Сыр', icon: '🧀' },
+            { id: 'milk', label: 'Молоко', icon: '🥛' },
+            { id: 'flour', label: 'Мука', icon: '🌾' },
+            { id: 'ground meat', label: 'Фарш', icon: '🥩' },
+            { id: 'fish', label: 'Рыба', icon: '🐟' },
+            { id: 'canned beans', label: 'Конс. фасоль', icon: '🫘' },
+            { id: 'canned tomatoes', label: 'Пом. в соку', icon: '🍅' }
+        ];
+
+        const exclusions = [
+            { id: 'gluten', label: 'Глютен', desc: 'Пшеница, рожь, ячмень', icon: '🌾' },
+            { id: 'dairy', label: 'Молочные', desc: 'Лактоза, казеин', icon: '🥛' },
+            { id: 'nuts', label: 'Орехи', desc: 'Арахис, миндаль, грецкие', icon: '🥜' },
+            { id: 'seafood', label: 'Морепродукты', desc: 'Креветки, мидии, кальмары', icon: '🦐' },
+            { id: 'eggs', label: 'Яйца', icon: '🥚' },
+            { id: 'soy', label: 'Соя', icon: '🫘' },
+            { id: 'spicy', label: 'Острое', desc: 'Перец чили, халапеньо', icon: '🌶️' },
+            { id: 'onion_garlic', label: 'Лук и чеснок', icon: '🧅' },
+            { id: 'mushrooms', label: 'Грибы', icon: '🍄' }
+        ];
+
+        // База рецептов с ссылками на полные рецепты
+        const recipes = [
+            {
+                id: 1,
+                title: 'Сырники с изюмом',
+                time: 20,
+                difficulty: 'Easy',
+                cuisine: 'Russian',
+                meal: 'Breakfast',
+                ingredients: ['творог', 'яйца', 'мука', 'сахар', 'изюм'],
+                ingredientIds: ['cottage cheese', 'eggs', 'flour'],
+                restrictionIds: ['dairy', 'eggs', 'gluten'],
+                dietTags: ['vegetarian'],
+                tags: ['завтрак', 'сырники', 'творог'],
+                match: 95,
+                url: 'https://m.povar.ru/recipes/syrniki_s_iziumom-8459.html'
+            },
+            {
+                id: 2,
+                title: 'Омлет с овощами',
+                time: 15,
+                difficulty: 'Easy',
+                cuisine: 'Any',
+                meal: 'Breakfast',
+                ingredients: ['яйца', 'томаты', 'перец', 'сыр', 'зелень'],
+                ingredientIds: ['eggs', 'tomatoes', 'cheese', 'vegetables'],
+                restrictionIds: ['dairy', 'eggs'],
+                dietTags: ['vegetarian', 'healthy'],
+                tags: ['завтрак', 'омлет', 'яйца'],
+                match: 90,
+                url: 'https://www.kikkoman.ru/recepty/detail/omlet-s-ovoshchami'
+            },
+            {
+                id: 3,
+                title: 'Паста Карбонара',
+                time: 25,
+                difficulty: 'Medium',
+                cuisine: 'Italian',
+                meal: 'Lunch',
+                ingredients: ['паста', 'яйца', 'бекон', 'сыр пармезан', 'сливки'],
+                ingredientIds: ['pasta', 'eggs', 'cheese'],
+                restrictionIds: ['dairy', 'eggs', 'gluten'],
+                dietTags: [],
+                tags: ['паста', 'итальянская', 'обед'],
+                match: 85,
+                url: 'https://m.povar.ru/recipes/pasta_karbonara-55387.html'
+            },
+            {
+                id: 4,
+                title: 'Плов с курицей',
+                time: 50,
+                difficulty: 'Medium',
+                cuisine: 'Asian',
+                meal: 'Lunch',
+                ingredients: ['рис', 'курица', 'морковь', 'лук', 'специи'],
+                ingredientIds: ['rice', 'chicken', 'vegetables', 'onion'],
+                restrictionIds: ['onion_garlic'],
+                dietTags: [],
+                tags: ['плов', 'курица', 'обед'],
+                match: 88,
+                url: 'https://m.povar.ru/recipes/plov_s_kuricei-12315.html'
+            },
+            {
+                id: 5,
+                title: 'Сырный суп с курицей',
+                time: 35,
+                difficulty: 'Easy',
+                cuisine: 'Russian',
+                meal: 'Lunch',
+                ingredients: ['курица', 'сыр плавленый', 'картофель', 'морковь', 'лук'],
+                ingredientIds: ['chicken', 'cheese', 'potatoes', 'vegetables', 'onion'],
+                restrictionIds: ['dairy', 'onion_garlic'],
+                dietTags: [],
+                tags: ['суп', 'сырный', 'обед'],
+                match: 92,
+                url: 'https://povar.ru/recipes/syrnyi_sup_s_kuricei-1284.html'
+            },
+            {
+                id: 6,
+                title: 'Тако с фаршем',
+                time: 25,
+                difficulty: 'Easy',
+                cuisine: 'Mexican',
+                meal: 'Dinner',
+                ingredients: ['фарш', 'тортильи', 'томаты', 'салат', 'сыр'],
+                ingredientIds: ['ground meat', 'tomatoes', 'vegetables', 'cheese'],
+                restrictionIds: ['dairy', 'gluten', 'onion_garlic', 'spicy'],
+                dietTags: [],
+                tags: ['тако', 'мексиканская', 'ужин'],
+                match: 80,
+                url: 'https://www.iamcook.ru/showrecipe/37479'
+            },
+            {
+                id: 7,
+                title: 'Запеканка из творога',
+                time: 40,
+                difficulty: 'Easy',
+                cuisine: 'Russian',
+                meal: 'Breakfast',
+                ingredients: ['творог', 'яйца', 'манка', 'сахар', 'изюм'],
+                ingredientIds: ['cottage cheese', 'eggs'],
+                restrictionIds: ['dairy', 'eggs', 'gluten'],
+                dietTags: ['vegetarian'],
+                tags: ['запеканка', 'творог', 'завтрак'],
+                match: 88,
+                url: 'https://m.povar.ru/recipes/klassicheskaya_tvorojnaya_zapekanka-42374.html'
+            },
+            {
+                id: 8,
+                title: 'Бутерброды с авокадо и яйцом',
+                time: 10,
+                difficulty: 'Easy',
+                cuisine: 'Any',
+                meal: 'Snack',
+                ingredients: ['хлеб', 'авокадо', 'яйца', 'лимон', 'соль'],
+                ingredientIds: ['eggs'],
+                restrictionIds: ['eggs', 'gluten'],
+                dietTags: ['vegetarian', 'healthy'],
+                tags: ['перекус', 'бутерброд', 'авокадо'],
+                match: 75,
+                url: 'https://m.povar.ru/recipes/buterbrody_s_avokado_i_yaicom-82329.html'
+            },
+            {
+                id: 9,
+                title: 'Ризотто с грибами',
+                time: 40,
+                difficulty: 'Hard',
+                cuisine: 'Italian',
+                meal: 'Dinner',
+                ingredients: ['рис арборио', 'грибы', 'лук', 'вино', 'пармезан'],
+                ingredientIds: ['rice', 'vegetables', 'onion', 'cheese'],
+                restrictionIds: ['dairy', 'onion_garlic', 'mushrooms'],
+                dietTags: ['vegetarian'],
+                tags: ['ризотто', 'грибы', 'ужин'],
+                match: 82,
+                url: 'https://m.povar.ru/recipes/rizotto_s_gribami-894.html'
+            },
+            {
+                id: 10,
+                title: 'Курица терияки с рисом',
+                time: 30,
+                difficulty: 'Medium',
+                cuisine: 'Asian',
+                meal: 'Dinner',
+                ingredients: ['курица', 'рис', 'соевый соус', 'мёд', 'имбирь'],
+                ingredientIds: ['chicken', 'rice'],
+                restrictionIds: ['soy'],
+                dietTags: [],
+                tags: ['курица', 'терияки', 'ужин'],
+                match: 87,
+                url: 'https://povar.ru/recipes/kurica_teriyaki_s_risom-45985.html'
+            },
+            {
+                id: 11,
+                title: 'ПП гречка с грибами',
+                time: 20,
+                difficulty: 'Easy',
+                cuisine: 'Russian',
+                meal: 'Breakfast',
+                ingredients: ['гречка', 'грибы', 'зелёный лук'],
+                ingredientIds: ['buckwheat', 'vegetables', 'onion'],
+                restrictionIds: ['onion_garlic', 'mushrooms'],
+                dietTags: ['vegetarian', 'vegan', 'healthy'],
+                tags: ['гречка', 'грибы', 'зож'],
+                match: 90,
+                url: 'https://m.povar.ru/recipes/pp_grechka_s_gribami-80989.html'
+            },
+            {
+                id: 12,
+                title: 'Фасоль с овощами',
+                time: 90,
+                difficulty: 'Medium',
+                cuisine: 'Any',
+                meal: 'Lunch',
+                ingredients: ['фасоль', 'томаты', 'морковь', 'лук', 'перец'],
+                ingredientIds: ['canned beans', 'tomatoes', 'vegetables', 'onion'],
+                restrictionIds: ['onion_garlic'],
+                dietTags: ['vegetarian', 'vegan', 'healthy'],
+                tags: ['фасоль', 'овощи', 'постное'],
+                match: 85,
+                url: 'https://povar.ru/recipes/fasol_s_ovoshami-11819.html'
+            },
+            {
+                id: 13,
+                title: 'Рыба с овощами на пару',
+                time: 60,
+                difficulty: 'Medium',
+                cuisine: 'Mediterranean',
+                meal: 'Lunch',
+                ingredients: ['рыба', 'рис', 'морковь', 'лук', 'чеснок'],
+                ingredientIds: ['fish', 'rice', 'vegetables', 'onion', 'garlic'],
+                restrictionIds: ['onion_garlic'],
+                dietTags: ['healthy'],
+                tags: ['рыба', 'овощи', 'на пару'],
+                match: 85,
+                url: 'https://povar.ru/recipes/ryba_s_ovoshami_na_paru-30914.html'
+            },
+            {
+                id: 14,
+                title: 'Овощное рагу',
+                time: 30,
+                difficulty: 'Easy',
+                cuisine: 'Russian',
+                meal: 'Dinner',
+                ingredients: ['томаты', 'баклажан', 'кабачок', 'лук', 'чеснок'],
+                ingredientIds: ['tomatoes', 'vegetables', 'onion', 'garlic'],
+                restrictionIds: ['onion_garlic'],
+                dietTags: ['vegetarian', 'vegan', 'healthy'],
+                tags: ['овощи', 'рагу', 'постное'],
+                match: 88,
+                url: 'https://m.povar.ru/recipes/ovoshnoe_ragu_vse_smeshal_i_gotovo-61756.html'
+            },
+            {
+                id: 15,
+                title: 'Курица с овощами',
+                time: 20,
+                difficulty: 'Easy',
+                cuisine: 'Asian',
+                meal: 'Dinner',
+                ingredients: ['курица', 'кабачок', 'томаты', 'специи'],
+                ingredientIds: ['chicken', 'tomatoes', 'vegetables'],
+                restrictionIds: [],
+                dietTags: [],
+                tags: ['курица', 'овощи', 'быстрый ужин'],
+                match: 86,
+                url: 'https://povar.ru/recipes/kurica_s_ovoshami-11022.html'
+            },
+            {
+                id: 16,
+                title: 'Овощное рагу с грибами',
+                time: 30,
+                difficulty: 'Easy',
+                cuisine: 'Mediterranean',
+                meal: 'Dinner',
+                ingredients: ['грибы', 'капуста', 'морковь', 'лук', 'чеснок'],
+                ingredientIds: ['vegetables', 'onion', 'garlic'],
+                restrictionIds: ['onion_garlic', 'mushrooms'],
+                dietTags: ['vegetarian', 'vegan', 'healthy'],
+                tags: ['овощи', 'грибы', 'постное'],
+                match: 84,
+                url: 'https://m.povar.ru/recipes/ovoshnoe_ragu_s_gribami-19955.html'
+            },
+            {
+                id: 17,
+                title: 'Драники картофельные классические',
+                time: 30,
+                difficulty: 'Easy',
+                cuisine: 'Russian',
+                meal: 'Breakfast',
+                ingredients: ['картофель', 'яйца', 'мука', 'лук'],
+                ingredientIds: ['potatoes', 'eggs', 'flour', 'onion'],
+                restrictionIds: ['eggs', 'gluten', 'onion_garlic'],
+                dietTags: ['vegetarian'],
+                tags: ['картофель', 'драники', 'завтрак'],
+                match: 83,
+                url: 'https://povar.ru/recipes/draniki_kartofelnye_klassicheskie-43098.html'
+            },
+            {
+                id: 18,
+                title: 'Салат со свежим тунцом',
+                time: 35,
+                difficulty: 'Medium',
+                cuisine: 'Mediterranean',
+                meal: 'Snack',
+                ingredients: ['тунец', 'томаты', 'салат', 'яйца', 'перец'],
+                ingredientIds: ['fish', 'tomatoes', 'vegetables', 'eggs'],
+                restrictionIds: ['eggs'],
+                dietTags: ['healthy'],
+                tags: ['рыба', 'салат', 'перекус'],
+                match: 80,
+                url: 'https://m.povar.ru/recipes/salat_so_svejim_tuncom-48619.html'
+            },
+            {
+                id: 19,
+                title: 'Салат с фасолью по-техасски',
+                time: 75,
+                difficulty: 'Easy',
+                cuisine: 'American',
+                meal: 'Snack',
+                ingredients: ['консервированная фасоль', 'зелёный горошек', 'перец', 'сельдерей'],
+                ingredientIds: ['canned beans', 'vegetables'],
+                restrictionIds: [],
+                dietTags: ['vegetarian', 'vegan', 'healthy'],
+                tags: ['фасоль', 'салат', 'перекус'],
+                match: 78,
+                url: 'https://m.povar.ru/recipes/salat_s_fasoliu_po-tehasski-2157.html'
+            },
+            {
+                id: 20,
+                title: 'Салат с тунцом, рисом и сыром',
+                time: 30,
+                difficulty: 'Easy',
+                cuisine: 'Mediterranean',
+                meal: 'Dinner',
+                ingredients: ['тунец', 'рис', 'сыр', 'яйца', 'огурец', 'лук'],
+                ingredientIds: ['fish', 'rice', 'cheese', 'eggs', 'onion'],
+                restrictionIds: ['dairy', 'eggs', 'onion_garlic'],
+                dietTags: [],
+                tags: ['рыба', 'рис', 'салат'],
+                match: 82,
+                url: 'https://povar.ru/recipes/salat_s_tuncom_risom_i_syrom-32772.html'
+            },
+            {
+                id: 21,
+                title: 'Жареный рис с курицей, яйцом и овощами',
+                time: 20,
+                difficulty: 'Easy',
+                cuisine: 'Asian',
+                meal: 'Dinner',
+                ingredients: ['готовый рис', 'курица', 'яйца', 'морковь', 'зелёный горошек', 'овощи'],
+                ingredientIds: ['chicken', 'rice', 'eggs', 'vegetables'],
+                restrictionIds: ['eggs', 'soy', 'onion_garlic'],
+                dietTags: [],
+                tags: ['курица', 'рис', 'яйца', 'овощи', 'быстрый ужин'],
+                note: '20 минут, если рис уже сварен',
+                match: 96,
+                url: 'https://m.povar.ru/recipes/kitaiskii_jarenyi_ris_s_kuricei-81120.html'
+            }
+        ];
+
+        // Состояние
+        let currentQuestion = 1;
+        const answers = {};
+
+        // DOM элементы
+        const questions = document.querySelectorAll('.question');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        const btnBack = document.getElementById('btnBack');
+        const btnNext = document.getElementById('btnNext');
+        const resultsCard = document.getElementById('resultsCard');
+
+        // Инициализация опций
+        function initOptions() {
+            renderOptions('mealOptions', meals, false);
+            renderOptions('difficultyOptions', difficulties, false);
+            renderOptions('cuisineOptions', cuisines, false);
+            renderOptions('ingredientOptions', ingredients, true);
+            renderOptions('exclusionOptions', exclusions, true);
+
+            // Слайдер времени
+            const slider = document.getElementById('timeSlider');
+            const timeValue = document.getElementById('timeValue');
+            slider.addEventListener('input', (e) => {
+                timeValue.textContent = e.target.value + ' мин';
+            });
+        }
+
+        function renderOptions(containerId, items, multi) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = items.map(item => `
+                <label class="option${multi ? ' multi' : ''}" data-id="${item.id}" onclick="toggleOption(this, ${multi})">
+                    <input type="${multi ? 'checkbox' : 'radio'}" name="${containerId}" value="${item.id}">
+                    <span class="option-icon">${item.icon}</span>
+                    <span class="option-text">
+                        ${item.label}
+                        ${item.desc ? `<br><small style="color:#888;">${item.desc}</small>` : ''}
+                    </span>
+                    <span class="option-check">✓</span>
+                </label>
+            `).join('');
+        }
+
+        function toggleOption(el, multi) {
+            const input = el.querySelector('input');
+            if (multi) {
+                input.checked = !input.checked;
+                el.classList.toggle('selected', input.checked);
+            } else {
+                // Радио - снимаем выделение с остальных в той же группе
+                const name = input.name;
+                document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
+                    radio.checked = false;
+                    radio.closest('.option').classList.remove('selected');
+                });
+                input.checked = true;
+                el.classList.add('selected');
+            }
+            updateNextButton();
+        }
+
+        function updateNextButton() {
+            const currentQ = document.querySelector('.question.active');
+            const requiredInputs = currentQ.querySelectorAll('input[required], input[name="mealOptions"], input[name="difficultyOptions"]');
+            let hasAnswer = false;
+            
+            if (currentQ.id === 'q1') {
+                hasAnswer = document.querySelector('input[name="mealOptions"]:checked');
+            } else if (currentQ.id === 'q2') {
+                hasAnswer = true; // слайдер всегда имеет значение
+            } else if (currentQ.id === 'q3') {
+                hasAnswer = document.querySelector('input[name="difficultyOptions"]:checked');
+            } else if (currentQ.id === 'q4') {
+                hasAnswer = document.querySelector('input[name="cuisineOptions"]:checked');
+            } else if (currentQ.id === 'q5' || currentQ.id === 'q6') {
+                hasAnswer = true; // опционально
+            } else if (currentQ.id === 'q7') {
+                hasAnswer = true; // опционально
+            }
+
+            btnNext.disabled = !hasAnswer;
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < 7) {
+                saveAnswer();
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            } else {
+                saveAnswer();
+                showResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 1) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        }
+
+        function saveAnswer() {
+            const q = document.querySelector('.question.active');
+            if (!q) return;
+
+            if (q.id === 'q1') {
+                const checked = document.querySelector('input[name="mealOptions"]:checked');
+                if (checked) answers.mealType = checked.value;
+            } else if (q.id === 'q2') {
+                answers.maxTime = parseInt(document.getElementById('timeSlider').value);
+            } else if (q.id === 'q3') {
+                const checked = document.querySelector('input[name="difficultyOptions"]:checked');
+                if (checked) answers.difficulty = checked.value;
+            } else if (q.id === 'q4') {
+                const checked = document.querySelector('input[name="cuisineOptions"]:checked');
+                if (checked) answers.cuisine = checked.value;
+            } else if (q.id === 'q5') {
+                answers.ingredients = Array.from(document.querySelectorAll('#ingredientOptions input:checked')).map(i => i.value);
+            } else if (q.id === 'q6') {
+                answers.exclusions = Array.from(document.querySelectorAll('#exclusionOptions input:checked')).map(i => i.value);
+            } else if (q.id === 'q7') {
+                answers.extra = document.getElementById('extraInput').value;
+            }
+        }
+
+        function showQuestion(num) {
+            questions.forEach(q => q.classList.remove('active'));
+            document.getElementById(`q${num}`).classList.add('active');
+            
+            // Прогресс
+            const progress = (num / 7) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Вопрос ${num} из 7`;
+            
+            // Кнопки
+            btnBack.style.display = num > 1 ? 'flex' : 'none';
+            btnNext.textContent = num === 7 ? 'Найти рецепты' : 'Далее';
+            
+            // Восстанавливаем ответы если есть
+            restoreAnswer(num);
+            
+            updateNextButton();
+        }
+
+        function restoreAnswer(num) {
+            const q = document.getElementById(`q${num}`);
+            if (!q) return;
+
+            if (num === 1 && answers.mealType) {
+                const input = document.querySelector(`input[name="mealOptions"][value="${answers.mealType}"]`);
+                if (input) {
+                    input.checked = true;
+                    input.closest('.option').classList.add('selected');
+                }
+            } else if (num === 2 && answers.maxTime) {
+                document.getElementById('timeSlider').value = answers.maxTime;
+                document.getElementById('timeValue').textContent = answers.maxTime + ' мин';
+            } else if (num === 3 && answers.difficulty) {
+                const input = document.querySelector(`input[name="difficultyOptions"][value="${answers.difficulty}"]`);
+                if (input) {
+                    input.checked = true;
+                    input.closest('.option').classList.add('selected');
+                }
+            } else if (num === 4 && answers.cuisine) {
+                const input = document.querySelector(`input[name="cuisineOptions"][value="${answers.cuisine}"]`);
+                if (input) {
+                    input.checked = true;
+                    input.closest('.option').classList.add('selected');
+                }
+            } else if (num === 5 && answers.ingredients) {
+                answers.ingredients.forEach(id => {
+                    const input = document.querySelector(`#ingredientOptions input[value="${id}"]`);
+                    if (input) {
+                        input.checked = true;
+                        input.closest('.option').classList.add('selected');
+                    }
+                });
+            } else if (num === 6 && answers.exclusions) {
+                answers.exclusions.forEach(id => {
+                    const input = document.querySelector(`#exclusionOptions input[value="${id}"]`);
+                    if (input) {
+                        input.checked = true;
+                        input.closest('.option').classList.add('selected');
+                    }
+                });
+            } else if (num === 7 && answers.extra) {
+                document.getElementById('extraInput').value = answers.extra;
+            }
+            updateNextButton();
+        }
+
+        function showResults() {
+            document.querySelector('.card').classList.add('hidden');
+            resultsCard.classList.remove('hidden');
+            
+            const filtered = filterRecipes();
+            document.getElementById('resultDesc').textContent = filtered.length
+                ? `Нашлось ${filtered.length} рецептов под твои параметры`
+                : 'Нет рецептов, которые одновременно отвечают всем выбранным условиям';
+            renderRecipes(filtered);
+        }
+
+        function getRequestedRestrictions() {
+            const requested = new Set(answers.exclusions || []);
+            const extra = (answers.extra || '').toLowerCase();
+
+            if (/без\s+(глютен[а-я]*|мук[аиуые])/.test(extra)) requested.add('gluten');
+            if (/без\s+(молочн[а-я]*|лактоз[а-я]*)/.test(extra)) requested.add('dairy');
+            if (/без\s+яиц/.test(extra)) requested.add('eggs');
+            if (/без\s+(сои|соев[а-я]*)/.test(extra)) requested.add('soy');
+            if (/без\s+(мяса|мясн[а-я]*)/.test(extra)) requested.add('meat');
+
+            return requested;
+        }
+
+        function matchesCuisine(recipe) {
+            if (!answers.cuisine || answers.cuisine === 'any') return true;
+            if (['Vegetarian', 'Vegan', 'Healthy'].includes(answers.cuisine)) {
+                return recipe.dietTags.includes(answers.cuisine.toLowerCase());
+            }
+            return recipe.cuisine === answers.cuisine;
+        }
+
+        function matchesHardConstraints(recipe, restrictions) {
+            if (answers.maxTime && recipe.time > answers.maxTime) return false;
+            if (answers.difficulty && recipe.difficulty !== answers.difficulty) return false;
+            if (answers.mealType && recipe.meal !== answers.mealType) return false;
+            if (!matchesCuisine(recipe)) return false;
+            if (recipe.restrictionIds.some(id => restrictions.has(id))) return false;
+            if (restrictions.has('meat') && !recipe.dietTags.includes('vegetarian')) return false;
+
+            const selectedIngredients = answers.ingredients || [];
+            return !selectedIngredients.length || selectedIngredients.some(id => recipe.ingredientIds.includes(id));
+        }
+
+        function filterRecipes() {
+            const restrictions = getRequestedRestrictions();
+            const selectedIngredients = answers.ingredients || [];
+
+            return recipes
+            .filter(recipe => matchesHardConstraints(recipe, restrictions))
+            .map(recipe => {
+                const matchedIngredients = selectedIngredients.filter(id => recipe.ingredientIds.includes(id)).length;
+                const score = selectedIngredients.length
+                    ? Math.round((matchedIngredients / selectedIngredients.length) * 100)
+                    : 100;
+                return { ...recipe, score };
+            })
+            .sort((a, b) => b.score - a.score)
+            .slice(0, 5);
+        }
+
+        function renderRecipes(list) {
+            const container = document.getElementById('recipeList');
+            if (list.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#888; padding:20px;">Ничего не найдено. Попробуй изменить параметры.</p>';
+                return;
+            }
+            
+            container.innerHTML = list.map(r => `
+                <div class="recipe-card">
+                    <h3 class="recipe-title">${r.title} <span style="font-size:0.8rem; color:#2E7D32;">${r.score}%</span></h3>
+                    <div class="recipe-meta">
+                        <span>⏱ ${r.time} мин</span>
+                        <span>${r.difficulty === 'Easy' ? '⚡ Очень просто' : r.difficulty === 'Medium' ? '👨‍🍳 Просто' : '🍳 Средне'}</span>
+                        <span>${r.cuisine === 'Any' ? '🌍 Любая' : r.cuisine}</span>
+                    </div>
+                    <div class="recipe-ingredients">
+                        <strong>Ингредиенты:</strong> ${r.ingredients.join(', ')}
+                    </div>
+                    ${r.note ? `<div class="recipe-meta" style="margin-top:8px;">💡 ${r.note}</div>` : ''}
+                    <a class="recipe-link" href="${r.url}" target="_blank" rel="noopener">
+                        📖 Смотреть рецепт
+                    </a>
+                </div>
+            `).join('');
+        }
+
+        function restart() {
+            currentQuestion = 1;
+            Object.keys(answers).forEach(k => delete answers[k]);
+            document.querySelectorAll('.option').forEach(el => el.classList.remove('selected'));
+            document.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(i => i.checked = false);
+            document.getElementById('timeSlider').value = 30;
+            document.getElementById('timeValue').textContent = '30 мин';
+            document.getElementById('extraInput').value = '';
+            
+            resultsCard.classList.add('hidden');
+            document.querySelector('.card').classList.remove('hidden');
+            showQuestion(1);
+        }
+
+        // Инициализация
+        initOptions();
+        showQuestion(1);
+
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'dark') {
+            themeToggle.classList.add('active');
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            themeToggle.classList.toggle('active', newTheme === 'dark');
+        }
+    </script>
+</body>
+</html>
