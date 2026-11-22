@@ -1350,6 +1350,9 @@
                 cuisine: 'Russian',
                 meal: 'Breakfast',
                 ingredients: ['творог', 'яйца', 'мука', 'сахар', 'изюм'],
+                ingredientIds: ['cottage cheese', 'eggs', 'flour'],
+                restrictionIds: ['dairy', 'eggs', 'gluten'],
+                dietTags: ['vegetarian'],
                 tags: ['завтрак', 'сырники', 'творог'],
                 match: 95,
                 url: 'https://m.povar.ru/recipes/syrniki_s_iziumom-8459.html'
@@ -1362,6 +1365,9 @@
                 cuisine: 'Any',
                 meal: 'Breakfast',
                 ingredients: ['яйца', 'томаты', 'перец', 'сыр', 'зелень'],
+                ingredientIds: ['eggs', 'tomatoes', 'cheese', 'vegetables'],
+                restrictionIds: ['dairy', 'eggs'],
+                dietTags: ['vegetarian', 'healthy'],
                 tags: ['завтрак', 'омлет', 'яйца'],
                 match: 90,
                 url: 'https://www.kikkoman.ru/recepty/detail/omlet-s-ovoshchami'
@@ -1374,6 +1380,9 @@
                 cuisine: 'Italian',
                 meal: 'Lunch',
                 ingredients: ['паста', 'яйца', 'бекон', 'сыр пармезан', 'сливки'],
+                ingredientIds: ['pasta', 'eggs', 'cheese'],
+                restrictionIds: ['dairy', 'eggs', 'gluten'],
+                dietTags: [],
                 tags: ['паста', 'итальянская', 'обед'],
                 match: 85,
                 url: 'https://m.povar.ru/recipes/pasta_karbonara-55387.html'
@@ -1386,6 +1395,9 @@
                 cuisine: 'Asian',
                 meal: 'Lunch',
                 ingredients: ['рис', 'курица', 'морковь', 'лук', 'специи'],
+                ingredientIds: ['rice', 'chicken', 'vegetables', 'onion'],
+                restrictionIds: ['onion_garlic'],
+                dietTags: [],
                 tags: ['плов', 'курица', 'обед'],
                 match: 88,
                 url: 'https://m.povar.ru/recipes/plov_s_kuricei-12315.html'
@@ -1398,6 +1410,9 @@
                 cuisine: 'Russian',
                 meal: 'Lunch',
                 ingredients: ['курица', 'сыр плавленый', 'картофель', 'морковь', 'лук'],
+                ingredientIds: ['chicken', 'cheese', 'potatoes', 'vegetables', 'onion'],
+                restrictionIds: ['dairy', 'onion_garlic'],
+                dietTags: [],
                 tags: ['суп', 'сырный', 'обед'],
                 match: 92,
                 url: 'https://povar.ru/recipes/syrnyi_sup_s_kuricei-1284.html'
@@ -1410,6 +1425,9 @@
                 cuisine: 'Mexican',
                 meal: 'Dinner',
                 ingredients: ['фарш', 'тортильи', 'томаты', 'салат', 'сыр'],
+                ingredientIds: ['ground meat', 'tomatoes', 'vegetables', 'cheese'],
+                restrictionIds: ['dairy', 'gluten', 'onion_garlic', 'spicy'],
+                dietTags: [],
                 tags: ['тако', 'мексиканская', 'ужин'],
                 match: 80,
                 url: 'https://www.iamcook.ru/showrecipe/37479'
@@ -1422,6 +1440,9 @@
                 cuisine: 'Russian',
                 meal: 'Breakfast',
                 ingredients: ['творог', 'яйца', 'манка', 'сахар', 'изюм'],
+                ingredientIds: ['cottage cheese', 'eggs'],
+                restrictionIds: ['dairy', 'eggs', 'gluten'],
+                dietTags: ['vegetarian'],
                 tags: ['запеканка', 'творог', 'завтрак'],
                 match: 88,
                 url: 'https://m.povar.ru/recipes/klassicheskaya_tvorojnaya_zapekanka-42374.html'
@@ -1434,6 +1455,9 @@
                 cuisine: 'Any',
                 meal: 'Snack',
                 ingredients: ['хлеб', 'авокадо', 'яйца', 'лимон', 'соль'],
+                ingredientIds: ['eggs'],
+                restrictionIds: ['eggs', 'gluten'],
+                dietTags: ['vegetarian', 'healthy'],
                 tags: ['перекус', 'бутерброд', 'авокадо'],
                 match: 75,
                 url: 'https://m.povar.ru/recipes/buterbrody_s_avokado_i_yaicom-82329.html'
@@ -1446,6 +1470,9 @@
                 cuisine: 'Italian',
                 meal: 'Dinner',
                 ingredients: ['рис арборио', 'грибы', 'лук', 'вино', 'пармезан'],
+                ingredientIds: ['rice', 'vegetables', 'onion', 'cheese'],
+                restrictionIds: ['dairy', 'onion_garlic', 'mushrooms'],
+                dietTags: ['vegetarian'],
                 tags: ['ризотто', 'грибы', 'ужин'],
                 match: 82,
                 url: 'https://m.povar.ru/recipes/rizotto_s_gribami-894.html'
@@ -1458,6 +1485,9 @@
                 cuisine: 'Asian',
                 meal: 'Dinner',
                 ingredients: ['курица', 'рис', 'соевый соус', 'мёд', 'имбирь'],
+                ingredientIds: ['chicken', 'rice'],
+                restrictionIds: ['soy'],
+                dietTags: [],
                 tags: ['курица', 'терияки', 'ужин'],
                 match: 87,
                 url: 'https://povar.ru/recipes/kurica_teriyaki_s_risom-45985.html'
@@ -1544,7 +1574,7 @@
                 hasAnswer = true; // опционально
             }
 
-            btnNext.disabled = !hasAnswer && currentQuestion <= 3;
+            btnNext.disabled = !hasAnswer;
         }
 
         function nextQuestion() {
@@ -1660,45 +1690,58 @@
             resultsCard.classList.remove('hidden');
             
             const filtered = filterRecipes();
+            document.getElementById('resultDesc').textContent = filtered.length
+                ? `Нашлось ${filtered.length} рецептов под твои параметры`
+                : 'Нет рецептов, которые одновременно отвечают всем выбранным условиям';
             renderRecipes(filtered);
         }
 
+        function getRequestedRestrictions() {
+            const requested = new Set(answers.exclusions || []);
+            const extra = (answers.extra || '').toLowerCase();
+
+            if (/без\s+(глютен[а-я]*|мук[аиуые])/.test(extra)) requested.add('gluten');
+            if (/без\s+(молочн[а-я]*|лактоз[а-я]*)/.test(extra)) requested.add('dairy');
+            if (/без\s+яиц/.test(extra)) requested.add('eggs');
+            if (/без\s+(сои|соев[а-я]*)/.test(extra)) requested.add('soy');
+            if (/без\s+(мяса|мясн[а-я]*)/.test(extra)) requested.add('meat');
+
+            return requested;
+        }
+
+        function matchesCuisine(recipe) {
+            if (!answers.cuisine || answers.cuisine === 'any') return true;
+            if (['Vegetarian', 'Vegan', 'Healthy'].includes(answers.cuisine)) {
+                return recipe.dietTags.includes(answers.cuisine.toLowerCase());
+            }
+            return recipe.cuisine === answers.cuisine;
+        }
+
+        function matchesHardConstraints(recipe, restrictions) {
+            if (answers.maxTime && recipe.time > answers.maxTime) return false;
+            if (answers.difficulty && recipe.difficulty !== answers.difficulty) return false;
+            if (answers.mealType && recipe.meal !== answers.mealType) return false;
+            if (!matchesCuisine(recipe)) return false;
+            if (recipe.restrictionIds.some(id => restrictions.has(id))) return false;
+            if (restrictions.has('meat') && !recipe.dietTags.includes('vegetarian')) return false;
+
+            const selectedIngredients = answers.ingredients || [];
+            return !selectedIngredients.length || selectedIngredients.some(id => recipe.ingredientIds.includes(id));
+        }
+
         function filterRecipes() {
-            return recipes.map(recipe => {
-                let score = 0;
-                
-                // Время
-                if (answers.maxTime && recipe.time <= answers.maxTime) score += 30;
-                
-                // Сложность
-                if (answers.difficulty && recipe.difficulty === answers.difficulty) score += 25;
-                
-                // Кухня
-                if (answers.cuisine && answers.cuisine !== 'any' && recipe.cuisine === answers.cuisine) score += 20;
-                else if (!answers.cuisine || answers.cuisine === 'any') score += 10;
-                
-                // Ингредиенты
-                if (answers.ingredients && answers.ingredients.length) {
-                    const overlap = recipe.ingredients.filter(ing => 
-                        answers.ingredients.some(a => ing.toLowerCase().includes(a.toLowerCase()))
-                    ).length;
-                    score += overlap * 5;
-                }
-                
-                // Исключения
-                if (answers.exclusions && answers.exclusions.length) {
-                    const excluded = recipe.ingredients.filter(ing =>
-                        answers.exclusions.some(ex => ing.toLowerCase().includes(ex.toLowerCase()))
-                    ).length;
-                    score -= excluded * 20;
-                }
-                
-                // Приём пищи
-                if (answers.mealType && recipe.meal === answers.mealType) score += 15;
-                
-                return { ...recipe, score: Math.max(0, score) };
+            const restrictions = getRequestedRestrictions();
+            const selectedIngredients = answers.ingredients || [];
+
+            return recipes
+            .filter(recipe => matchesHardConstraints(recipe, restrictions))
+            .map(recipe => {
+                const matchedIngredients = selectedIngredients.filter(id => recipe.ingredientIds.includes(id)).length;
+                const score = selectedIngredients.length
+                    ? Math.round((matchedIngredients / selectedIngredients.length) * 100)
+                    : 100;
+                return { ...recipe, score };
             })
-            .filter(r => r.score > 0)
             .sort((a, b) => b.score - a.score)
             .slice(0, 5);
         }
